@@ -5,17 +5,19 @@ import { Register } from "../../pages/Register";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { BlogPost } from "../../pages/BlogPost";
 import { Feed } from '../../pages/Feed';
+import { AuthLayout } from "../../layouts/Auth";
+import { AppLayout } from "../../layouts/App";
 
 export function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/auth'>
+        <Route path='/auth' element={<AuthLayout />}>
           <Route path='login' element={<Login />} />
           <Route path='logout' element={<Logout />} />
           <Route path='register' element={<Register />} />
         </Route>
-        <Route path='/'>
+        <Route path='/' element={<AppLayout />}>
           <Route path='' element={
             <ProtectedRoute>
               <Feed />
