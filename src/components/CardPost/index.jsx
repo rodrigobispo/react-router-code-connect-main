@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Author } from "../Author"
 import { ModalComment } from "../ModalComment"
 import styles from './cardpost.module.css'
-
 import { ThumbsUpButton } from "./ThumbsUpButton"
 import { Link } from "react-router"
 
@@ -10,14 +9,18 @@ export const CardPost = ({ post }) => {
 
   const [likes, setLikes] = useState(post.likes);
 
+  const token = localStorage.getItem('access_token')
 
   const handleLikeButton = () => {
     fetch(`http://localhost:3000/blog-posts/${post.id}/like`, {
-      method: 'post'
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(response => {
         if (response.ok) {
-          setLikes(oldState => oldState + 1);
+          setLikes(currentLikes => currentLikes + 1);
           console.log('incrementa like');
         }
       })
